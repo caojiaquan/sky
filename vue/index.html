@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <style>
+        table,tr,td{
+            border:1px solid #000000;
+            border-collapse:collapse;
+        }
+        img{
+            width:100px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="cart">
+    <button @click="addCarts">添加商品</button>
+    <table>
+        <thead>
+        <tr>
+            <td></td>
+            <td>商品图片</td>
+            <td>商品信息</td>
+            <td>赠送</td>
+            <td>商品金额</td>
+            <td>商品数量</td>
+            <td>总金额</td>
+            <td>编辑</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="product in productList">
+            <td><input type="checkbox" @click="countProductPrice(product)"/></td>
+            <td><img :src="product.productImg"  alt=""/></td>
+            <td v-text="product.productName"></td>
+            <td>
+                <ul>
+                    <li v-for="part in product.parts">{{part.partsName}}</li>
+                </ul>
+            </td>
+            <td v-text="product.productPrice"></td>
+            <td>
+                <button @click="minusProQuantity(product)">-</button>
+                <input type="text" :value="product.productQuentity"/>
+                <button @click="addProQuantity(product)">+</button>
+            </td>
+            <td v-text="product.productQuentity*product.productPrice"></td>
+            <td><a href="">删除</a></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="6"><input type="checkbox" @click="allCountPrice"/>全选</td>
+            <td>总计{{totalPrice}}</td>
+            <td><button>结账</button></td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+    <script src="vue.min.js"></script>
+    <script src="axios.min.js"></script>
+
+    <script>
+        var vm = new Vue({
+            el:'#cart',
+            data:{
+                productList:[],
+                cartsList:[],
+                totalPrice:0,
+                flag:false
+            },
+            mounted:function(){
+
+            },
+            methods:{
+                cartView:function(){
+                    var _this = this;
+                    axios.get('cart.json').then(function(res){
+                        _this.productList = res.data.result.productList;
+                    });
+                },
+                addCarts:function(){
+                    var newProduct = {
+                        "productId": 333,
+                        "productName": "haha",
+                        "productPrice": 20,
+                        "productQuentity": 1,
+                        "productImg": "1.jpg",
+                        "parts": [
+                            {
+                                "partsId": "10001",
+                                "partsName": "打火机"
+                            },
+                            {
+                                "partsId": "10002",
+                                "partsName": "苹果皮"
+                            }
+                        ]
+                    }
+                    this.productList.push(newProduct);
+                },
+                addProQuantity:function(product){
+                    product.productQuentity++;
+                },
+                minusProQuantity:function(product){
+                    if(product.productQuentity == 0){
+                        product.productQuentity = 0;
+                    }else{
+                        product.productQuentity--;
+                    }
+                },
+                countProductPrice:function(product){
+                    var _this = this;
+                    if(!product.flag){
+                        this.totalPrice = 0;
+                        this.cartsList.push(product);
+                        this.cartsList.forEach(function(elem){
+                            _this.totalPrice += elem.productQuentity*elem.productPrice;
+                        });
+                    }else{
+                        for(var i=0; i<this.cartsList.length; i++){
+                            if(this.cartsList[i].productId == product.productId){
+                                this.cartsList.splice(i,1);
+                                this.totalPrice = this.totalPrice - product.productQuentity*product.productPrice;
+                            }
+                        }
+                    }
+                    product.flag=!product.flag;
+
+                },
+                allCountPrice:function(){
+                    var _this = this;
+                    if(!this.flag){
+                        _this.totalPrice = 0;
+                        this.productList.forEach(function(elem){
+                            _this.totalPrice += elem.productQuentity*elem.productPrice;
+                        });
+                    }else{
+                        _this.totalPrice = 0;
+                    }
+                    this.flag = !this.flag;
+                }
+            }
+        });
+        vm.cartView();
+
+    </script>
+</body>
+</html>
