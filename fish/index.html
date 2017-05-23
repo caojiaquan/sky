@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_oxwlsvi69urqkt9.css"/>
+</head>
+
+<style>
+    @font-face {
+        font-family: 'iconfont';  /* project id 309089 */
+        src: url('//at.alicdn.com/t/font_oxwlsvi69urqkt9.eot');
+        src: url('//at.alicdn.com/t/font_oxwlsvi69urqkt9.eot?#iefix') format('embedded-opentype'),
+        url('//at.alicdn.com/t/font_oxwlsvi69urqkt9.woff') format('woff'),
+        url('//at.alicdn.com/t/font_oxwlsvi69urqkt9.ttf') format('truetype'),
+        url('//at.alicdn.com/t/font_oxwlsvi69urqkt9.svg#iconfont') format('svg');
+    }
+    .iconfontyyy{
+        font-family:"iconfont" !important;
+        font-size:6rem;
+        font-style:normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: 0.2px;
+        -moz-osx-font-smoothing: grayscale;}
+    html,body{
+        width: 100%;
+        font-size:62.5%;
+    }
+    #nav{
+        background: #cccccc;
+        height: 100px;
+        width: 100%;
+        position:fixed;
+        bottom:0;
+        left: 0;
+    }
+    #nav-box{
+        display: -webkit-box;
+
+    }
+    #nav-box div{
+        -webkit-box-flex: 1;
+        font-size:2rem;
+        text-align:center;
+    }
+    .nav-list{
+        display: block;
+    }
+    #nav-add{
+        background: orange;
+        display: inline-block;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        width: 8rem;
+        height: 8rem;
+        margin-top:-30px;
+        line-height:8rem; ;
+    }
+    #popups{
+        position:absolute;
+        top:0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, .5);
+        display: none;
+    }
+</style>
+<body>
+<div id="nav">
+    <div id="nav-box">
+        <div><span><i class="iconfontyyy">&#xe612;</i></span><span class="nav-list">首页</span></div>
+        <div><span><i class="iconfontyyy">&#xe679;</i></span><span class="nav-list">鱼塘</span></div>
+        <div><span id="nav-add"><i class="iconfontyyy">&#xe600;</i></span><span class="nav-list">发布</span></div>
+        <div><span><i class="iconfontyyy">&#xe624;</i></span><span class="nav-list">消息</span></div>
+        <div><span><i class="iconfontyyy">&#xe615;</i></span><span class="nav-list">我的</span></div>
+    </div>
+</div>
+<div id="popups"></div>
+
+<script>
+
+</script>
+</body>
+</html>
