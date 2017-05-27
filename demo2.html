@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+
+<div id="box" @send-msg="get">
+    <aaa></aaa>
+</div>
+
+<template id="a">
+    <div>
+        <h1>{{msg1}}</h1>
+        <h2>456</h2>
+        <button @click="send" value="send">send</button>
+    </div>
+
+</template>
+<script src="vue.min.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#box',
+        data:{
+            msg:'hahah'
+        },
+        methods:{
+            get:function(){
+                alert(123);
+            }
+        },
+        components:{
+            'aaa':{
+                data : function(){
+                    return {
+                        msg1:'我是子组件'
+                    }
+                },
+                template:'#a',
+                methods:{
+                    send:function(){
+                        this.$emit('send-msg',this.msg1);
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
