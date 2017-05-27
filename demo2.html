@@ -7,17 +7,20 @@
 </head>
 <body>
 
-<div id="box" @send-msg="get">
+<div id="box" >
     <aaa></aaa>
 </div>
 
-<template id="a">
+<template id="a" @send-msg="get">
     <div>
         <h1>{{msg1}}</h1>
-        <h2>456</h2>
-        <button @click="send" value="send">send</button>
+        <bbb></bbb>
     </div>
+</template>
 
+<template id="b">
+    <h2>{{msg2}}</h2>
+    <button @click="send" value="send">send</button>
 </template>
 <script src="vue.min.js"></script>
 <script>
@@ -35,13 +38,28 @@
             'aaa':{
                 data : function(){
                     return {
-                        msg1:'我是子组件'
+                        msg1:'我是父组件'
                     }
                 },
                 template:'#a',
                 methods:{
-                    send:function(){
-                        this.$emit('send-msg',this.msg1);
+                    get:function(){
+
+                    }
+                },
+                components:{
+                    'bbb':{
+                        data : function(){
+                            return {
+                                msg2:'我是子组件'
+                            }
+                        }
+                    },
+                    template:"#b",
+                    methods:{
+                        send:function(){
+                            this.$emit('send-msg',this.msg2);
+                        }
                     }
                 }
             }
