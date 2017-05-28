@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="div1">
+    <div class="clickBox">11111</div>
+    <div class="clickBox">22222</div>
+    <div class="clickBox">233333333</div>
+    <div class="clickBox">4444444</div>
+    <div class="clickBox">55555555</div>
+</div>
+<script>
+    //let引来了块级作用域的概念//
+
+    var clickBoxs = document.querySelectorAll('.clickBox')
+//    for (var i = 0; i < clickBoxs.length; i++){
+//        clickBoxs[i].onclick = function(){
+//            console.log(i)
+//        }
+//    }
+
+//闭包保留
+//        for (var i = 0; i < clickBoxs.length; i++){
+//            (function(idx){
+//                clickBoxs[idx].onclick = function(){
+//                    console.log(idx)
+//                }
+//            })(i);
+//        }
+//let
+        for (let i = 0; i < clickBoxs.length; i++){
+            clickBoxs[i].onclick = function(){
+                console.log(i)
+            }
+        }
+
+    const a = 9;
+    a = 4;
+    //用途  当使用第三方包引入的时候避免变量被改变所带来的问题
+    //const monent = require('moment')
+</script>
+</body>
+</html>
