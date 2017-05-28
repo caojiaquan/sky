@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="vue.min.js"></script>
+    <script src="vue-router.min.js"></script>
+</head>
+
+
+<body>
+    <div id="box">
+
+        <div>
+            <router-link to="/main">主页</router-link>
+            <router-link to="/news">新闻</router-link>
+        </div>
+        <div>
+            <router-view></router-view>
+        </div>
+    </div>
+
+
+    <template id="a">
+        <h3>我是主页</h3>
+    </template>
+    <template id="b">
+        <h3>我是新闻</h3>
+    </template>
+    <script>
+//        new Vue.extends({
+//            template:'<h1>我是组件</h1>'
+//        });
+//        Vue.component();
+        var Home = {
+            template:'#a'
+        };
+        var news = {
+            template:'#b'
+        };
+        //配置路由
+        var routes = [
+            {path:'/main',component:Home},
+            {path:'/news',component:news}
+
+        ];
+        //生成路由实例
+        var router = new VueRouter({
+            routes:routes
+        });
+         new Vue({
+            router:router,
+            el:'#box',
+            data:{
+
+            }
+        });
+
+    </script>
+
+
+</body>
+</html>
