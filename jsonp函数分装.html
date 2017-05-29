@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    function success(data){
+        console.log(data);
+    }
+    jsonp({
+        url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+        type:'get',
+        data:{
+            wd:'jsonp'
+        },
+        callback :'cb',
+        success:success
+    });
+    function jsonp(options){
+        var url = options.url;
+        var type = options.type;
+        var data = options.data;
+
+        format(data,options,function(str,callback){
+            var oBody = document.getElementsByTagName('body')[0];
+            var oScript = document.createElement('script');
+            oScript.setAttribute('src',url+'?'+str + options.callback+'='+callback);
+            oBody.appendChild(oScript);
+        });
+        return options.success;
+
+    };
+    function format(data,options,callback){
+        var callbackName = '';
+        var str = '';
+        for(var p in data){//格式化get提交的参数
+            str += p+'='+data[p]+'&';
+        }
+        for(var p in options){
+            if(options[p] == options.success){//取出要返回的函数名
+                callbackName = p;
+                callback && callback(str,callbackName);
+            }
+        }
+    }
+</script>
+</body>
+</html>
